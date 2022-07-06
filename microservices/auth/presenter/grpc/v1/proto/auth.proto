@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package  iuris.account.v1;
+
+option go_package = "./pb";
+
+//
+// protoc --go_opt=paths=source_relative --proto_path=./proto --proto_path=../../../../../protos --grpc-gateway_out=./ --grpc-gateway_opt logtostderr=true  --go_out=./pb --go-grpc_out=./ --go-grpc_opt=require_unimplemented_servers=false ./proto/auth.proto
+//
+
+service Auth {
+
+    rpc VersionOfAuthMicroService(VersionOfAuthMicroServiceRequest) returns (VersionOfAuthMicroServiceResponse);
+    rpc LoginById(LoginByIdRequest) returns (LoginByIdResponse);
+    rpc LoginByEmail(LoginByEmailRequest) returns (LoginByEmailResponse);
+	rpc LoginByPhone(LoginByPhoneRequest) returns (LoginByPhoneResponse);
+	rpc LoginByDocument(LoginByDocumentRequest) returns (LoginByDocumentResponse);
+
+}
+
+message VersionOfAuthMicroServiceRequest {
+}
+
+message VersionOfAuthMicroServiceResponse {
+    string Version = 1;
+}
+
+message LoginByIdRequest {
+    string Id = 1;
+    string Password = 2;
+}
+
+message LoginByIdResponse {
+    bool Success = 1;
+    string Token = 2;
+}
+
+message LoginByEmailRequest {
+    string Email = 1;
+    string Password = 2;
+}
+
+message LoginByEmailResponse {
+    bool Success = 1;
+    string Token = 2;
+}
+
+message LoginByPhoneRequest {
+    string Phone = 1;
+    string Password = 2;
+}
+
+message LoginByPhoneResponse {
+    bool Success = 1;
+    string Token = 2;
+}
+
+message LoginByDocumentRequest {
+    string Document = 1;
+    string Password = 2;
+}
+
+message LoginByDocumentResponse {
+    bool Success = 1;
+    string Token = 2;
+}

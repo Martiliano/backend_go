@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package  iuris.account.v1;
+
+option go_package = "./pb";
+
+//
+// cd microservices/account/presenter/grpc/v1
+// protoc --go_opt=paths=source_relative --proto_path=./proto --proto_path=../../../../../protos --grpc-gateway_out=./ --grpc-gateway_opt logtostderr=true  --go_out=./pb --go-grpc_out=./ --go-grpc_opt=require_unimplemented_servers=false ./proto/account.proto
+// cd ../../../../../
+// 
+
+service Account {
+    rpc CreateAccountSecret(CreateAccountSecretRequest) returns (CreateAccountSecretResponse);
+    rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse);
+
+    rpc VersionOfAccountMicroService(VersionOfAccountMicroServiceRequest) returns (VersionOfAccountMicroServiceResponse);
+
+    rpc GenerateSetPasswordToken(GenerateSetPasswordTokenRequest) returns (GenerateSetPasswordTokenResponse);
+    rpc SetPassword(SetPasswordRequest) returns (SetPasswordResponse);
+
+    rpc GenerateRecoveryPasswordToken(GenerateRecoveryPasswordTokenRequest) returns (GenerateRecoveryPasswordTokenResponse);
+    rpc RecoveryPassword(RecoveryPasswordRequest) returns (RecoveryPasswordResponse);
+
+    rpc GetAccountById(GetAccountByIdRequest) returns (GetAccountByIdResponse);
+    rpc GetAccountByEmail(GetAccountByEmailRequest) returns (GetAccountByEmailResponse);
+    rpc GetAccountByPhone(GetAccountByPhoneRequest) returns (GetAccountByPhoneResponse);
+    rpc GetAccountByDocument(GetAccountByDocumentRequest) returns (GetAccountByDocumentResponse);
+    rpc GetAllAccounts(GetAllAccountsRequest) returns (GetAllAccountsResponse);
+
+    rpc UpdateAccount(UpdateAccountRequest) returns (UpdateAccountResponse);
+    rpc DeleteAccount(DeleteAccountRequest) returns (DeleteAccountResponse);
+}
+
+message GenerateRecoveryPasswordTokenRequest {
+    string Id = 1;
+}
+
+message GenerateRecoveryPasswordTokenResponse {
+    bool Success = 1;
+    string Msg = 2;
+}
+
+message GenerateSetPasswordTokenRequest {
+    string Id = 1;
+}
+
+message GenerateSetPasswordTokenResponse {
+    bool Success = 1;
+    string Msg = 2;
+}
+
+message VersionOfAccountMicroServiceRequest {
+}
+
+message VersionOfAccountMicroServiceResponse {
+    string Version = 1;
+}
+
+message AccountEntities {
+    string Id = 1;
+	string UserName = 2;
+	string PhoneNumber = 3;
+	string Email = 4;
+	string Document = 5;
+	string FullName = 6;
+	repeated string TypeOfAccount = 7;
+	repeated string Roles = 8;
+}
+
+message CreateAccountSecretRequest {
+    string Secret = 1;
+    AccountEntities Account = 2;
+}
+
+message CreateAccountSecretResponse {
+    bool Success = 1;
+    string NewId = 2;
+    string Msg = 3;
+}
+
+message CreateAccountRequest {
+    AccountEntities Account = 1;
+}
+
+message CreateAccountResponse {
+    bool Success = 1;
+    string NewId = 2;
+    string Msg = 3;
+}
+
+message SetPasswordRequest {
+    string Token = 1;
+    string Password = 2;
+    string ConfirmPassword = 3;
+}
+
+message SetPasswordResponse {
+    bool Success = 1;
+    string Msg = 2;
+}
+
+message RecoveryPasswordRequest {
+    string Token = 1;
+    string Password = 2;
+    string ConfirmPassword = 3;
+}
+
+message RecoveryPasswordResponse {
+    bool Success = 1;
+    string Msg = 2;
+}
+
+message GetAccountByIdRequest {
+    string Id = 1;
+}
+
+message GetAccountByIdResponse {
+    bool Success = 1;
+    string Msg = 2;
+    AccountEntities Account = 3;
+}
+
+message GetAccountByEmailRequest {
+    string Email = 1;
+}
+
+message GetAccountByEmailResponse {
+    bool Success = 1;
+    string Msg = 2;
+    AccountEntities Account = 3;
+}
+
+message GetAccountByPhoneRequest {
+    string Phone = 1;
+}
+
+message GetAccountByPhoneResponse {
+    bool Success = 1;
+    string Msg = 2;
+    AccountEntities Account = 3;
+}
+
+message GetAccountByDocumentRequest {
+    string Document = 1;
+}
+
+message GetAccountByDocumentResponse {
+    bool Success = 1;
+    string Msg = 2;
+    AccountEntities Account = 3;
+}
+
+message GetAllAccountsRequest {
+}
+
+message GetAllAccountsResponse {
+    bool Success = 1;
+    string Msg = 2;
+    repeated AccountEntities Account = 3;
+}
+
+message UpdateAccountRequest {
+    AccountEntities Account = 1;
+}
+
+message UpdateAccountResponse {
+    bool Success = 1;
+    string Msg = 2;
+    int32 NumberOfUpdates = 3;
+}
+
+message DeleteAccountRequest {
+    string Id = 1;
+}
+
+message DeleteAccountResponse {
+    bool Success = 1;
+    string Msg = 2;
+    int32 NumberOfDeletes = 3;
+}
